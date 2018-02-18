@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
 
 
         filterPreview.setOriginalImage(R.drawable._maxresdefault)
+        filterPreview.post { filterPreview.onDrag(null, 0.5f) }
 
 
 //        elevator.setOnTouchListener { v, event ->

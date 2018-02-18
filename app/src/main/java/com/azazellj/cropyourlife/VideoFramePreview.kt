@@ -82,7 +82,7 @@ class VideoFramePreview : RelativeLayout {
     }
 
     fun optimizeImage(bitmap: Bitmap): Bitmap {
-        val width = resources.displayMetrics.widthPixels
+        val width = measuredWidth
 
         val newBitmapWidth = width
         val newBitmapHeight = (width / bitmap.width.toFloat()) * bitmap.height

@@ -2,7 +2,6 @@ package com.azazellj.cropyourlife
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.*
 import android.support.annotation.DrawableRes
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -53,15 +52,6 @@ class FilterPreviewView : RelativeLayout, OnDragTouchListener.OnDragActionListen
 
 
     fun draw(percentage: Float) {
-
-
-
-
-
-
-
-
-
 
 
     }

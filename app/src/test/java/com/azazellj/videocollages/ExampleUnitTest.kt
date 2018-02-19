@@ -1,4 +1,4 @@
-package com.azazellj.cropyourlife
+package com.azazellj.videocollages
 
 import org.junit.Test
 

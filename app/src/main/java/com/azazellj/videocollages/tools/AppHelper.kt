@@ -1,26 +1,9 @@
-/*
- * Copyright (C) 2013 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-package com.azazellj.cropyourlife
+package com.azazellj.videocollages.tools
 
 import android.annotation.TargetApi
 import android.graphics.Bitmap
 import android.hardware.Camera
 import android.media.MediaMetadataRetriever
-import android.media.MediaMetadataRetriever.OPTION_CLOSEST_SYNC
 import android.os.Build
 import android.os.Environment
 import android.util.Log
@@ -28,46 +11,16 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
-/**
- * Camera related utilities.
- */
-object CameraHelper {
-
+object AppHelper {
     const val MEDIA_TYPE_IMAGE = 1
     const val MEDIA_TYPE_VIDEO = 2
 
-    /**
-     * @return the default camera on the device. Return null if there is no camera on the device.
-     */
-    val defaultCameraInstance: Camera
-        get() = Camera.open()
-
-
-    /**
-     * @return the default rear/back facing camera on the device. Returns null if camera is not
-     * available.
-     */
     val defaultBackFacingCameraInstance: Camera?
         get() = getDefaultCamera(Camera.CameraInfo.CAMERA_FACING_BACK)
 
-    /**
-     * @return the default front facing camera on the device. Returns null if camera is not
-     * available.
-     */
     val defaultFrontFacingCameraInstance: Camera?
         get() = getDefaultCamera(Camera.CameraInfo.CAMERA_FACING_FRONT)
 
-    /**
-     * Iterate over supported camera video sizes to see which one best fits the
-     * dimensions of the given view while maintaining the aspect ratio. If none can,
-     * be lenient with the aspect ratio.
-     *
-     * @param supportedVideoSizes Supported camera video sizes.
-     * @param previewSizes Supported camera preview sizes.
-     * @param w     The width of the view.
-     * @param h     The height of the view.
-     * @return Best match camera video size to fit in the view.
-     */
     fun getOptimalVideoSize(supportedVideoSizes: List<Camera.Size>?,
                             previewSizes: List<Camera.Size>, w: Int, h: Int): Camera.Size? {
         // Use a very small tolerance because we want an exact match.
@@ -116,7 +69,6 @@ object CameraHelper {
         return optimalSize
     }
 
-
     /**
      *
      * @param position Physical position of the camera i.e Camera.CameraInfo.CAMERA_FACING_FRONT
@@ -156,14 +108,14 @@ object CameraHelper {
         }
 
         val mediaStorageDir = File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), "CameraSample")
+                Environment.DIRECTORY_PICTURES), "VideoCollages")
         // This location works best if you want the created images to be shared
         // between applications and persist after your app has been uninstalled.
 
         // Create the storage directory if it does not exist
         if (!mediaStorageDir.exists()) {
             if (!mediaStorageDir.mkdirs()) {
-                Log.d("CameraSample", "failed to create directory")
+                Log.d("VideoCollages", "failed to create directory")
                 return null
             }
         }
@@ -184,13 +136,6 @@ object CameraHelper {
         return mediaFile
     }
 
-    fun getMockedVideo(): File {
-        val mediaStorageDir = File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), "CameraSample")
-        return File(mediaStorageDir.path + File.separator + "VID_20180212_140628.mp4")
-    }
-
-
     fun getDuration(file: File): Int {
         val retriever = MediaMetadataRetriever()
         retriever.setDataSource(file.absolutePath)
@@ -199,8 +144,7 @@ object CameraHelper {
         return duration?.toInt() ?: return 0
     }
 
-    fun getFrame(position: Int, videoFile: File?): Bitmap? {
-        if (videoFile == null) return null
+    fun getFrame(position: Int, videoFile: File): Bitmap {
         val retriever = MediaMetadataRetriever()
         retriever.setDataSource(videoFile.absolutePath)
         val time = position.toLong() * 1000
@@ -221,5 +165,4 @@ object CameraHelper {
 
         return durations
     }
-
 }

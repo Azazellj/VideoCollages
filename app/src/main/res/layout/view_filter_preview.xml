@@ -5,20 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.azazellj.cropyourlife.DrawingView
+    <com.azazellj.videocollages.ui.view.DrawingView
         android:id="@+id/originalImageView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         app:srcCompat="@drawable/_maxresdefault" />
 
     <RelativeLayout
         android:id="@+id/dividerView"
-        android:layout_width="30dp"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/originalImageView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignBottom="@+id/originalImageView">
 
         <android.support.v7.widget.AppCompatImageView
             android:layout_width="wrap_content"
@@ -26,15 +24,15 @@
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/divider"
             android:paddingBottom="10dp"
-            android:tint="@android:color/white"
-            android:src="@drawable/ic_chevron_left" />
+            android:src="@drawable/ic_chevron_left"
+            android:tint="@android:color/white" />
 
         <View
             android:id="@+id/divider"
-            android:layout_width="5dp"
+            android:layout_width="10dp"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
-            android:background="@android:color/white" />
+            android:background="@android:color/holo_red_light" />
 
         <android.support.v7.widget.AppCompatImageView
             android:layout_width="wrap_content"
@@ -42,7 +40,7 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/divider"
             android:paddingTop="10dp"
-            android:tint="@android:color/white"
-            android:src="@drawable/ic_chevron_right" />
+            android:src="@drawable/ic_chevron_right"
+            android:tint="@android:color/white" />
     </RelativeLayout>
 </RelativeLayout>

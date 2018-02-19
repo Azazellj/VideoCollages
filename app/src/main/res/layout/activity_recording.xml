@@ -4,28 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.azazellj.cropyourlife.CameraPreview
+    <com.azazellj.videocollages.ui.view.CameraPreview
         android:id="@+id/mPreview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/play"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:adjustViewBounds="true"
         app:srcCompat="@drawable/record_rec" />
 
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/changeCamera"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_alignParentRight="true"
-        android:layout_margin="16dp"
-        android:adjustViewBounds="true"
-        app:srcCompat="@drawable/camera_rear" />
-
+    <!--<android.support.v7.widget.AppCompatImageView-->
+    <!--android:id="@+id/changeCamera"-->
+    <!--android:layout_width="48dp"-->
+    <!--android:layout_height="48dp"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:layout_margin="16dp"-->
+    <!--android:adjustViewBounds="true"-->
+    <!--app:srcCompat="@drawable/camera_rear" />-->
+    <!---->
 </RelativeLayout>

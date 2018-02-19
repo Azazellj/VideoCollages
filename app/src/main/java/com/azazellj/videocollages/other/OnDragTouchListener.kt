@@ -1,15 +1,17 @@
-package com.azazellj.cropyourlife
+package com.azazellj.videocollages.other
 
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
 
 /**
  * Created by azazellj on 2/5/18.
  */
-class OnDragTouchListener constructor(view: View, parent: View = view.parent as View, onDragActionListener: OnDragActionListener? = null) : View.OnTouchListener {
+class OnDragTouchListener constructor(view: View, parent: ViewGroup = view.parent as ViewGroup, onDragActionListener: OnDragActionListener? = null) : View.OnTouchListener {
 
     private var mView: View? = null
-    private var mParent: View? = null
+    private var mParent: ViewGroup? = null
     private var isDragging: Boolean = false
     private var isInitialized = false
 
@@ -48,7 +50,7 @@ class OnDragTouchListener constructor(view: View, parent: View = view.parent as 
         fun onDragEnd(view: View?)
     }
 
-    constructor(view: View, onDragActionListener: OnDragActionListener) : this(view, view.parent as View, onDragActionListener) {
+    constructor(view: View, onDragActionListener: OnDragActionListener) : this(view, view.parent as ViewGroup, onDragActionListener) {
         this.mOnDragActionListener = onDragActionListener
     }
 
@@ -61,7 +63,7 @@ class OnDragTouchListener constructor(view: View, parent: View = view.parent as 
         mOnDragActionListener = onDragActionListener
     }
 
-    fun initListener(view: View, parent: View) {
+    fun initListener(view: View, parent: ViewGroup) {
         mView = view
         mParent = parent
         isDragging = false
@@ -75,21 +77,21 @@ class OnDragTouchListener constructor(view: View, parent: View = view.parent as 
     }
 
     fun updateViewBounds() {
-        width = mView!!.width
+        width = mView!!.measuredWidth
         xWhenAttached = mView!!.x
         dX = 0f
 
-        height = mView!!.height
+        height = mView!!.measuredHeight
         yWhenAttached = mView!!.y
         dY = 0f
     }
 
     fun updateParentBounds() {
         maxLeft = 0f
-        maxRight = maxLeft + mParent!!.width
+        maxRight = maxLeft + mParent!!.measuredWidth
 
         maxTop = 0f
-        maxBottom = maxTop + mParent!!.height
+        maxBottom = maxTop + mParent!!.measuredHeight
     }
 
     override fun onTouch(v: View, event: MotionEvent): Boolean {
@@ -118,17 +120,22 @@ class OnDragTouchListener constructor(view: View, parent: View = view.parent as 
                 bounds[1] = bounds[3] - height
             }
 
+            mParent!!.requestDisallowInterceptTouchEvent(true)
+
             when (event.action) {
-                MotionEvent.ACTION_CANCEL, MotionEvent.ACTION_UP -> onDragFinish()
+                MotionEvent.ACTION_CANCEL,
+                MotionEvent.ACTION_UP -> onDragFinish()
                 MotionEvent.ACTION_MOVE -> {
                     mView!!.x = bounds[0]
-                    mOnDragActionListener?.onDrag(mView, ((bounds[0] + bounds[2]) / 2) / mParent!!.width.toFloat())
+                    mOnDragActionListener?.onDrag(mView, ((bounds[0] + bounds[2]) / 2) / mParent!!.measuredWidth.toFloat())
                 }
             }
             return true
         } else {
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
+                    Log.e("LOG", "dragging")
+
                     isDragging = true
                     if (!isInitialized) {
                         updateBounds()
@@ -149,6 +156,8 @@ class OnDragTouchListener constructor(view: View, parent: View = view.parent as 
         if (mOnDragActionListener != null) {
             mOnDragActionListener!!.onDragEnd(mView)
         }
+
+        Log.e("LOG", "dragging finish")
 
         dX = 0f
         dY = 0f

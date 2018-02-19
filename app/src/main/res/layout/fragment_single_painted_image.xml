@@ -20,56 +20,56 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
+            <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/rootLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
                 <com.azazellj.videocollages.ui.view.DrawingView
-                    android:id="@+id/i1"
+                    android:id="@+id/drawingView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:adjustViewBounds="true" />
 
-                <com.azazellj.videocollages.ui.view.DrawingView
-                    android:id="@+id/i2"
+                <RelativeLayout
+                    android:id="@+id/dividerView"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:animateLayoutChanges="true">
 
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-            </LinearLayout>
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@id/divider"
+                        android:paddingBottom="10dp"
+                        android:src="@drawable/ic_chevron_left"
+                        android:tint="@android:color/holo_red_light" />
 
-            <com.azazellj.videocollages.ui.view.DrawingView
-                android:id="@+id/i3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                    <View
+                        android:id="@+id/divider"
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:background="@android:color/holo_red_light" />
 
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/divider"
+                        android:paddingTop="10dp"
+                        android:src="@drawable/ic_chevron_right"
+                        android:tint="@android:color/holo_red_light" />
+                </RelativeLayout>
+            </FrameLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <com.azazellj.videocollages.ui.view.DrawingView
-                    android:id="@+id/i4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <com.azazellj.videocollages.ui.view.DrawingView
-                    android:id="@+id/i5"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-            </LinearLayout>
 
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="Your collage will be fully painted with a selected filter. Choose it and confirm painting."
+                android:text="Only selected photo will be painted with this filter. You can move the divider to observe the difference."
                 android:textSize="16sp" />
 
             <LinearLayout
